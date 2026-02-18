@@ -37,6 +37,9 @@ const backToTopBtn = document.getElementById('backToTop');
                 btn.classList.add('active');
             }
         });
+
+        // Recalculate positions after DOM reflow
+        setTimeout(positionMoonAndSides, 60);
     }
 
     // ===== ANIMATION TAB SWITCHING =====
@@ -54,6 +57,39 @@ const backToTopBtn = document.getElementById('backToTop');
                 btn.classList.add('active');
             }
         });
+
+        // When switching to gallery, kick all videos into playing
+        if (tabName === 'anim-gallery') {
+            setTimeout(() => {
+                document.querySelectorAll('#animGalleryGrid video').forEach(v => {
+                    v.muted = true;
+                    v.play().catch(() => {});
+                });
+            }, 100);
+        }
+
+        // Recalculate positions after DOM reflow
+        setTimeout(positionMoonAndSides, 60);
+    }
+
+    // ===== ABOUT TAB SWITCHING =====
+    function showAboutTab(tabName) {
+        const section = document.querySelector('.about-section');
+        const tabs = section.querySelectorAll('.tab-content');
+        const buttons = section.querySelectorAll('.about-tab');
+
+        tabs.forEach(tab => tab.classList.remove('active'));
+        buttons.forEach(btn => btn.classList.remove('active'));
+
+        document.getElementById(tabName).classList.add('active');
+        buttons.forEach(btn => {
+            if (btn.getAttribute('onclick').includes(tabName)) {
+                btn.classList.add('active');
+            }
+        });
+
+        // Recalculate positions after DOM reflow
+        setTimeout(positionMoonAndSides, 60);
     }
 
     // Smooth scroll for navigation
@@ -85,10 +121,16 @@ const backToTopBtn = document.getElementById('backToTop');
 
     function updateShowcase() {
         const display = document.querySelector('.illustration-display');
-        display.style.backgroundImage = `url('${images[currentImageIndex].src}')`;
-        display.style.backgroundSize = 'contain';
-        display.style.backgroundPosition = 'center';
-        display.style.backgroundRepeat = 'no-repeat';
+        const imageSrc = images[currentImageIndex].src;
+        
+        const img = new Image();
+        img.onload = function() {
+            display.style.backgroundImage = `url('${imageSrc}')`;
+            display.style.backgroundSize = 'contain';
+            display.style.backgroundPosition = 'center';
+            display.style.backgroundRepeat = 'no-repeat';
+        };
+        img.src = imageSrc;
     }
 
     function nextImage() {
@@ -134,74 +176,40 @@ const backToTopBtn = document.getElementById('backToTop');
         });
     }
 
-// Add detailed information for each animation
-const animationDetails = [
-    {
-        url: 'https://youtu.be/xO5sDt7_qN4',
-        title: 'Walk Cycle',
-        category: 'Character Animation',
-        duration: '10 seconds',
-        software: 'Adobe Animate'
-    },
-    {
-        url: 'https://www.youtube.com/watch?v=9bZkp7q19f0',
-        title: 'Run Cycle',
-        category: 'Character Animation',
-        duration: '8 seconds',
-        software: 'Toon Boom Harmony'
-    },
-    {
-        url: 'https://www.youtube.com/watch?v=kJQP7kiw5Fk',
-        title: 'Expressions',
-        category: 'Character Animation',
-        duration: '15 seconds',
-        software: 'Procreate & After Effects'
-    },
-    {
-        url: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
-        title: 'Frog Loop',
-        category: 'Short Loop',
-        duration: '6 seconds loop',
-        software: 'Adobe Animate'
-    },
-    {
-        url: 'https://www.youtube.com/watch?v=jNQXAC9IVRw',
-        title: 'Nature Loop',
-        category: 'Short Loop',
-        duration: '10 seconds loop',
-        software: 'After Effects'
-    },
-    {
-        url: 'https://www.youtube.com/watch?v=9bZkp7q19f0',
-        title: '2025 Demo Reel',
-        category: 'Demo Reel',
-        duration: '90 seconds',
-        software: 'Premiere Pro'
-    },
-    {
-        url: 'https://www.youtube.com/watch?v=kJQP7kiw5Fk',
-        title: '2024 Demo Reel',
-        category: 'Demo Reel',
-        duration: '75 seconds',
-        software: 'Premiere Pro'
-    }
-];
-
     // ===== ANIMATIONS SECTION =====
     const animationCategories = [
         {
-            section: 'Character Animations',
+            section: 'Locomotion',
             videos: [
-                { src: 'vids/GirlWalkCycle.gif', title: 'Girl Walk Cycle', thumbnail: 'vids/GirlWalkCycle.gif' },
-                { src: 'vids/StoneLionRunCycle.gif', title: 'Stone Lion Run', thumbnail: 'vids/StoneLionRunCycle.gif' },
-                { src: 'vids/WalkCycle.gif', title: 'Walk Cycle', thumbnail: 'vids/WalkCycle.gif' },
+                { src: 'vids/GirlWalkCycle.gif',           title: 'Girl Walk Cycle',   thumbnail: 'vids/GirlWalkCycle.gif' },
+                { src: 'vids/StoneLionRunCycle.gif',        title: 'Stone Lion Run Cycle', thumbnail: 'vids/StoneLionRunCycle.gif' },
+                { src: 'vids/WalkCycle.gif',                title: 'Walk Cycle',        thumbnail: 'vids/WalkCycle.gif' },
+                { src: 'vids/walk4legged.gif',              title: 'Walk 4 Legged',     thumbnail: 'vids/walk4legged.gif' },
+                { src: 'vids/walk4leggedfoxfixed (1).gif',  title: 'Walk Fox Fixed',    thumbnail: 'vids/walk4leggedfoxfixed (1).gif' },
             ]
         },
         {
-            section: 'Short Loops',
+            section: 'Motion Graphics',
             videos: [
-                { src: 'vids/walk4legged.gif', title: 'Walk 4 Legged', thumbnail: 'vids/walk4legged.gif' },
-                { src: 'vids/walk4leggedfoxfixed (1).gif', title: 'Walk Fox Fixed', thumbnail: 'vids/walk4leggedfoxfixed (1).gif' },
+                { src: 'vids/icebreaker.mp4',  title: 'Icebreaker',  thumbnail: 'vids/icebreaker.mp4' },
+                { src: 'vids/rig.mp4',         title: 'Rig',         thumbnail: 'vids/rig.mp4' },
+                { src: 'vids/lyrics.mp4',      title: 'Lyrics',      thumbnail: 'vids/lyrics.mp4' },
+                { src: 'vids/Tiger-final.mp4', title: 'Tiger Final', thumbnail: 'vids/Tiger-final.mp4' },
+            ]
+        },
+        {
+            section: 'Character Acting',
+            videos: [
+                { src: 'vids/hair.mp4',           title: 'Hair',            thumbnail: 'vids/hair.mp4' },
+                { src: 'vids/wave.mp4',            title: 'Wave',            thumbnail: 'vids/wave.mp4' },
+                { src: 'vids/props.mp4',           title: 'Props',            thumbnail: 'vids/props.mp4' },
+                { src: 'vids/ScaryEncounter.mp4',  title: 'Scary Encounter', thumbnail: 'vids/ScaryEncounter.mp4' },
+            ]
+        },
+        {
+            section: 'Stop Motion',
+            videos: [
+                { src: 'vids/stopmotion-cat.mp4', title: '1 Cat', thumbnail: 'vids/stopmotion-cat.mp4' },
             ]
         }
     ];
@@ -218,14 +226,14 @@ const animationDetails = [
         const currentVideo = allAnimations[currentVideoIndex];
         const fileExtension = currentVideo.src.split('.').pop().toLowerCase();
         
-        // Check if it's a GIF or video file
+        const loopAttr = 'autoplay loop muted playsinline';
         if (fileExtension === 'gif') {
             videoPlaceholder.innerHTML = `
                 <img src="${currentVideo.src}" alt="${currentVideo.title}" style="width: 100%; height: 100%; border-radius: 20px; object-fit: contain;">
             `;
         } else {
             videoPlaceholder.innerHTML = `
-                <video width="100%" height="100%" controls style="border-radius: 20px;">
+                <video width="100%" height="100%" ${loopAttr} style="border-radius: 20px;">
                     <source src="${currentVideo.src}" type="video/mp4">
                     Your browser does not support the video tag.
                 </video>
@@ -269,9 +277,39 @@ const animationDetails = [
                 const item = document.createElement('div');
                 item.className = 'anim-gallery-item';
 
-                const img = document.createElement('img');
-                img.src = video.thumbnail;
-                img.alt = video.title;
+                let mediaEl;
+                const thumbExt = video.thumbnail.split('.').pop().toLowerCase();
+
+                if (thumbExt === 'gif') {
+                    mediaEl = document.createElement('img');
+                    mediaEl.src = video.thumbnail;
+                    mediaEl.alt = video.title;
+                    mediaEl.style.cssText = 'width:100%;height:100%;object-fit:cover;display:block;';
+                } else {
+                    mediaEl = document.createElement('video');
+                    mediaEl.muted = true;
+                    mediaEl.playsInline = true;
+                    mediaEl.loop = true;
+                    mediaEl.setAttribute('autoplay', '');
+                    mediaEl.setAttribute('muted', '');
+                    mediaEl.style.cssText = 'width:100%;height:100%;object-fit:cover;display:block;';
+
+                    const source = document.createElement('source');
+                    source.src = video.thumbnail;
+                    source.type = 'video/mp4';
+                    mediaEl.appendChild(source);
+
+                    // Force play when ready
+                    mediaEl.addEventListener('canplay', () => {
+                        mediaEl.play().catch(() => {});
+                    });
+
+                    // Backup manual loop
+                    mediaEl.addEventListener('ended', () => {
+                        mediaEl.currentTime = 0;
+                        mediaEl.play().catch(() => {});
+                    });
+                }
 
                 const overlay = document.createElement('div');
                 overlay.className = 'overlay';
@@ -282,7 +320,7 @@ const animationDetails = [
                     <span>${video.title}</span>
                 `;
 
-                item.appendChild(img);
+                item.appendChild(mediaEl);
                 item.appendChild(overlay);
 
                 item.addEventListener('click', () => {
@@ -295,6 +333,12 @@ const animationDetails = [
                 });
 
                 grid.appendChild(item);
+
+                // Attempt immediate play after appending to DOM
+                if (mediaEl.tagName === 'VIDEO') {
+                    mediaEl.load();
+                    mediaEl.play().catch(() => {});
+                }
             });
 
             section.appendChild(grid);
@@ -305,47 +349,39 @@ const animationDetails = [
     // ===== FILMS SECTION =====
     const films = [
         {
-            url: 'https://www.youtube.com/watch?v=jNQXAC9IVRw',
+            url: 'https://www.youtube.com/watch?v=xO5sDt7_qN4',
             title: 'FISHBOWL',
-            description: 'A heartwarming story about a fish who dreams of exploring the world beyond his bowl. This animated short explores themes of curiosity, adventure, and finding your place in the world.',
+            description: "A young painter searches for a reference for her aquatic painting, but doesn't know the fish she bought is actually magical. This imaginative animated short explores themes of curiosity, adventure, and finding your place in the world.",
+            year: '2025',
+            genre: 'Animation',
+            duration: '7 min',
+            roles: 'Director, Editor, Animator, Colorist',
+            imdb: 'https://m.imdb.com/title/tt36786195/?ref_=ext_shr_lnk',
+            youtubeLink: 'https://www.youtube.com/watch?v=xO5sDt7_qN4',
+            artwork: [
+                'imgs/artwork1.png',
+                'imgs/artwork2.png',
+                'imgs/artwork3.png',
+                'imgs/artwork4.png',
+                'imgs/artwork5.png',
+                'imgs/artwork6.png',
+            ]
+        },
+        {
+            url: 'https://www.youtube.com/watch?v=fXAdtJOotVQ',
+            title: 'PIZZA DOG',
+            description: 'Dog learns to let go. This heartfelt animated short explores themes of love and loss between two best friends.',
             year: '2024',
             genre: 'Animation',
-            duration: '5 min',
-            process: [
-                { step: 'Concept & Storyboarding', text: 'Started with sketches and mood boards to establish the visual style and narrative flow.' },
-                { step: 'Character Design', text: 'Developed the main character through multiple iterations, focusing on expressive features.' },
-                { step: 'Animation', text: 'Used frame-by-frame animation techniques in Adobe Animate for smooth, organic movement.' },
-                { step: 'Sound Design', text: 'Collaborated with a composer to create an original score that enhances the emotional beats.' },
-                { step: 'Post-Production', text: 'Color grading and final touches in After Effects to achieve the desired aesthetic.' }
-            ]
-        },
-        {
-            url: 'https://www.youtube.com/watch?v=9bZkp7q19f0',
-            title: 'DREAMSCAPE',
-            description: 'An experimental film exploring the surreal landscapes of the subconscious mind through abstract animation and vivid color palettes.',
-            year: '2023',
-            genre: 'Experimental',
-            duration: '7 min',
-            process: [
-                { step: 'Research & Inspiration', text: 'Studied dream psychology and surrealist art movements to inform the visual direction.' },
-                { step: 'Visual Development', text: 'Created digital paintings and color studies to establish the dreamlike atmosphere.' },
-                { step: 'Animation Techniques', text: 'Combined 2D and experimental techniques including rotoscoping and digital painting.' },
-                { step: 'Music Integration', text: 'Worked closely with electronic musicians to sync visuals with the soundscape.' }
-            ]
-        },
-        {
-            url: 'https://www.youtube.com/watch?v=kJQP7kiw5Fk',
-            title: 'PAPER TRAILS',
-            description: 'A stop-motion journey through a paper world where origami characters come to life and navigate the challenges of their fragile existence.',
-            year: '2023',
-            genre: 'Stop Motion',
-            duration: '6 min',
-            process: [
-                { step: 'Paper Craft', text: 'Hand-folded over 200 origami pieces for characters and set pieces.' },
-                { step: 'Set Construction', text: 'Built miniature sets using layered paper and cardboard to create depth.' },
-                { step: 'Stop Motion Animation', text: 'Shot frame by frame over 3 weeks, capturing thousands of individual photographs.' },
-                { step: 'Lighting Design', text: 'Experimented with backlighting to create shadows and emphasize the paper texture.' },
-                { step: 'Final Edit', text: 'Assembled sequences and added subtle digital effects for transitions.' }
+            duration: '2 min',
+            roles: 'Director, Editor, Animator, Colorist',
+            imdb: 'https://m.imdb.com/title/tt36587391/?ref_=ext_shr_lnk',
+            youtubeLink: 'https://www.youtube.com/watch?v=fXAdtJOotVQ',
+            artwork: [
+                'imgs/pizza1.png',
+                'imgs/pizza2.png',
+                'imgs/pizza3.png',
+                'imgs/pizza4.png',
             ]
         }
     ];
@@ -357,7 +393,9 @@ const animationDetails = [
         const filmTag = document.querySelector('.film-tag');
         const filmText = document.querySelector('.film-text');
         const filmMeta = document.querySelector('.film-meta');
-        const processContent = document.querySelector('.process-content');
+        const filmRoles = document.querySelector('.film-roles');
+        const filmLinks = document.querySelector('.film-links');
+        const artworkGrid = document.querySelector('.artwork-grid');
 
         if (!videoPlaceholder) return;
 
@@ -375,31 +413,47 @@ const animationDetails = [
 
         if (filmTag) filmTag.textContent = currentFilm.title;
         if (filmText) filmText.textContent = currentFilm.description;
+
         if (filmMeta) {
             filmMeta.innerHTML = `
                 <span>${currentFilm.year}</span>
-                <span class="meta-divider">•</span>
+                <span class="meta-dot">•</span>
                 <span>${currentFilm.genre}</span>
-                <span class="meta-divider">•</span>
+                <span class="meta-dot">•</span>
                 <span>${currentFilm.duration}</span>
             `;
         }
 
-        if (processContent) {
-            processContent.innerHTML = '';
-            currentFilm.process.forEach((item, index) => {
-                const processItem = document.createElement('div');
-                processItem.className = 'process-item';
-                processItem.innerHTML = `
-                    <div class="process-number">${index + 1}</div>
-                    <div class="process-details">
-                        <h5 class="process-step">${item.step}</h5>
-                        <p class="process-text">${item.text}</p>
-                    </div>
-                `;
-                processContent.appendChild(processItem);
-            });
+        if (filmRoles) filmRoles.textContent = currentFilm.roles || '';
+
+        if (filmLinks) {
+            filmLinks.innerHTML = '';
+            if (currentFilm.imdb) {
+                filmLinks.innerHTML += `<a href="${currentFilm.imdb}" target="_blank" class="film-link">IMDB page</a>`;
+            }
+            if (currentFilm.youtubeLink) {
+                filmLinks.innerHTML += `<a href="${currentFilm.youtubeLink}" target="_blank" class="film-link">YouTube Link</a>`;
+            }
         }
+
+        // Populate artwork grid
+        if (artworkGrid) {
+            artworkGrid.innerHTML = '';
+            if (currentFilm.artwork && currentFilm.artwork.length > 0) {
+                currentFilm.artwork.forEach(imgSrc => {
+                    const imgEl = document.createElement('img');
+                    imgEl.src = imgSrc;
+                    imgEl.alt = currentFilm.title + ' artwork';
+                    imgEl.className = 'artwork-img';
+                    artworkGrid.appendChild(imgEl);
+                });
+            } else {
+                artworkGrid.innerHTML = '<p class="no-artwork">No artwork added yet.</p>';
+            }
+        }
+
+        // Recalculate moon/sides after film content changes height
+        setTimeout(positionMoonAndSides, 60);
     }
 
     function nextFilm() {
@@ -412,136 +466,201 @@ const animationDetails = [
         updateFilmDisplay();
     }
 
+    // ===== STAMP HIGHLIGHT =====
+    function addStampHighlight() {
+        const stamps = document.querySelectorAll('.stamp');
+        const stampBg = document.querySelector('.contact-stamp');
+        
+        if (!stampBg) return;
+        
+        stamps.forEach(stamp => {
+            stamp.addEventListener('mouseenter', () => {
+                stampBg.classList.add('highlight');
+            });
+            stamp.addEventListener('mouseleave', () => {
+                if (!stamp.classList.contains('dragging')) {
+                    stampBg.classList.remove('highlight');
+                }
+            });
+            stamp.addEventListener('mousedown', () => {
+                stampBg.classList.add('highlight');
+            });
+            stamp.addEventListener('touchstart', () => {
+                stampBg.classList.add('highlight');
+            });
+        });
+        
+        document.addEventListener('mouseup', () => {
+            if (stampBg) {
+                setTimeout(() => { stampBg.classList.remove('highlight'); }, 300);
+            }
+        });
+        document.addEventListener('touchend', () => {
+            if (stampBg) {
+                setTimeout(() => { stampBg.classList.remove('highlight'); }, 300);
+            }
+        });
+    }
+
     // ===== DRAGGABLE STAMPS =====
     function makeDraggable() {
         const stamps = document.querySelectorAll('.stamp');
+        const contactContainer = document.querySelector('.contact-container');
+
+        contactContainer.style.minHeight = contactContainer.offsetHeight + 'px';
+
+        const stampTops = [0, 210, 420];
+        stamps.forEach((stamp, i) => {
+            stamp.style.top = stampTops[i] + 'px';
+            stamp.style.left = '0px';
+        });
 
         stamps.forEach(stamp => {
             let isDragging = false;
-            let currentX, currentY, initialX, initialY;
-            let xOffset = 0, yOffset = 0;
+            let mouseOffsetX, mouseOffsetY;
 
             stamp.addEventListener('mousedown', dragStart);
-            stamp.addEventListener('touchstart', dragStart);
-            document.addEventListener('mousemove', drag);
-            document.addEventListener('touchmove', drag);
-            document.addEventListener('mouseup', dragEnd);
-            document.addEventListener('touchend', dragEnd);
+            stamp.addEventListener('touchstart', dragStart, { passive: false });
 
             function dragStart(e) {
-                if (e.type === 'touchstart') {
-                    initialX = e.touches[0].clientX - xOffset;
-                    initialY = e.touches[0].clientY - yOffset;
-                } else {
-                    initialX = e.clientX - xOffset;
-                    initialY = e.clientY - yOffset;
+                e.preventDefault();
+
+                const clientX = e.type === 'touchstart' ? e.touches[0].clientX : e.clientX;
+                const clientY = e.type === 'touchstart' ? e.touches[0].clientY : e.clientY;
+
+                const stampRect = stamp.getBoundingClientRect();
+                mouseOffsetX = clientX - stampRect.left;
+                mouseOffsetY = clientY - stampRect.top;
+
+                if (stamp.parentElement !== contactContainer) {
+                    const containerRect = contactContainer.getBoundingClientRect();
+                    const newLeft = stampRect.left - containerRect.left;
+                    const newTop  = stampRect.top  - containerRect.top;
+
+                    const placeholder = document.createElement('div');
+                    placeholder.className = 'stamp-placeholder';
+                    placeholder.style.cssText = `
+                        width: ${stamp.offsetWidth}px;
+                        height: ${stamp.offsetHeight}px;
+                        position: absolute;
+                        top: ${stamp.style.top};
+                        left: ${stamp.style.left};
+                        visibility: hidden;
+                        pointer-events: none;
+                    `;
+                    stamp.parentElement.appendChild(placeholder);
+                    stamp._placeholder = placeholder;
+
+                    contactContainer.appendChild(stamp);
+                    stamp.style.left = newLeft + 'px';
+                    stamp.style.top  = newTop  + 'px';
                 }
-                if (e.target === stamp || stamp.contains(e.target)) {
-                    isDragging = true;
-                    stamp.classList.add('dragging');
-                }
+
+                isDragging = true;
+                stamp.style.zIndex = '1000';
+                stamp.classList.add('dragging');
+
+                document.addEventListener('mousemove', drag);
+                document.addEventListener('touchmove', drag, { passive: false });
+                document.addEventListener('mouseup', dragEnd);
+                document.addEventListener('touchend', dragEnd);
             }
 
             function drag(e) {
-                if (isDragging) {
-                    e.preventDefault();
-                    if (e.type === 'touchmove') {
-                        currentX = e.touches[0].clientX - initialX;
-                        currentY = e.touches[0].clientY - initialY;
-                    } else {
-                        currentX = e.clientX - initialX;
-                        currentY = e.clientY - initialY;
-                    }
-                    xOffset = currentX;
-                    yOffset = currentY;
-                    stamp.style.transform = `translate(${currentX}px, ${currentY}px)`;
-                }
+                if (!isDragging) return;
+                e.preventDefault();
+
+                const clientX = e.type === 'touchmove' ? e.touches[0].clientX : e.clientX;
+                const clientY = e.type === 'touchmove' ? e.touches[0].clientY : e.clientY;
+
+                const containerRect = contactContainer.getBoundingClientRect();
+                stamp.style.left = (clientX - containerRect.left - mouseOffsetX) + 'px';
+                stamp.style.top  = (clientY - containerRect.top  - mouseOffsetY) + 'px';
             }
 
             function dragEnd() {
-                if (isDragging) {
-                    initialX = currentX;
-                    initialY = currentY;
-                    isDragging = false;
-                    stamp.classList.remove('dragging');
-                }
+                isDragging = false;
+                stamp.style.zIndex = '10';
+                stamp.classList.remove('dragging');
+                document.removeEventListener('mousemove', drag);
+                document.removeEventListener('touchmove', drag);
+                document.removeEventListener('mouseup', dragEnd);
+                document.removeEventListener('touchend', dragEnd);
             }
         });
     }
 
     // ===== POSITION MOON AND SIDE DECORATIONS =====
-   function positionElements() {
-    const contact = document.querySelector('.contact-section');
-    const moon = document.querySelector('.right-moon');
-    const sides = document.querySelectorAll('.side-decoration-container');
-    const footer = document.querySelector('.footer');
+    function positionMoonAndSides() {
+        const contact = document.querySelector('.contact-section');
+        const moon = document.querySelector('.right-moon');
+        const sides = document.querySelectorAll('.side-decoration-container');
 
-    if (!contact) return;
+        if (!contact) return;
 
-    // Reset contact margins first so offsetTop is accurate
-    contact.style.marginLeft = '';
-    contact.style.marginRight = '';
-    contact.style.paddingLeft = '';
-    contact.style.paddingRight = '';
+        const contactTop = contact.offsetTop;
 
-    const contactTop = contact.offsetTop;
-    
-    const bodyStyle = window.getComputedStyle(document.body);
-    const paddingLeft = parseInt(bodyStyle.paddingLeft) || 0;
-    const paddingRight = parseInt(bodyStyle.paddingRight) || 0;
-
-  // --- Moon: position just above the contact section with -100px offset ---
-    let moonTop = contactTop;
-    if (moon) {
-        const moonH = moon.offsetHeight || 300;
-        moonTop = contactTop - moonH + 90; // Slight overlap with contact
-        moon.style.top = (moonTop - 100) + 'px'; // -100px offset to move it up
-    }
-    
-    // --- Side decorations ---
-    sides.forEach(s => {
-        if (s.classList.contains('left')) {
-            // Left side: Start below the sun, end just before contact section
-            const sunImg = document.querySelector('.left-sun');
-            const sunHeight = sunImg ? (sunImg.offsetHeight || 300) : 300;
-            const topOffset = sunHeight + 20;
-            s.style.top = topOffset + 'px';
-            s.style.left = 10 + 'px';
-            
-            // End just before contact section starts
-            s.style.height = (contactTop - topOffset - 80) + 'px';
-            
-        } else if (s.classList.contains('right')) {
-            // Right side: Start from top, end just before the moon
-            const topOffset = 10;
-            s.style.top = topOffset + 'px';
-            
-            const moonImg = document.querySelector('.right-moon');
-            if (moonImg) {
-                const moonTopPos = parseInt(moonImg.style.top) || moonTop;
-                const moonH = moonImg.offsetHeight || 300;
-                // End at the top of the moon (no gap, just touch it)
-                s.style.height = (moonTopPos - topOffset - 50) + 'px';
-            } else {
-                s.style.height = (contactTop - topOffset - 80) + 'px';
-            }
+        let moonTop = contactTop;
+        if (moon) {
+            const moonH = moon.offsetHeight || 300;
+            moonTop = contactTop - moonH + 90;
+            moon.style.top = (moonTop - 100) + 'px';
         }
-    });
-    
-    // --- Contact section: full viewport width ---
-    contact.style.marginLeft = '-' + paddingLeft + 'px';
-    contact.style.marginRight = '-' + paddingRight + 'px';
-    contact.style.paddingLeft = (paddingLeft + 30) + 'px';
-    contact.style.paddingRight = (paddingRight + 30) + 'px';
 
-    // --- Footer: full viewport width ---
-    if (footer) {
-        footer.style.marginLeft = '-' + paddingLeft + 'px';
-        footer.style.marginRight = '-' + paddingRight + 'px';
-        footer.style.paddingLeft = (paddingLeft + 30) + 'px';
-        footer.style.paddingRight = (paddingRight + 30) + 'px';
+        sides.forEach(s => {
+            if (s.classList.contains('left')) {
+                const sunImg = document.querySelector('.left-sun');
+                const sunHeight = sunImg ? (sunImg.offsetHeight || 300) : 300;
+                const topOffset = sunHeight + 20;
+                s.style.top = topOffset + 'px';
+                s.style.left = 10 + 'px';
+                s.style.height = (contactTop - topOffset - 80) + 'px';
+            } else if (s.classList.contains('right')) {
+                const topOffset = 10;
+                s.style.top = topOffset + 'px';
+                const moonImg = document.querySelector('.right-moon');
+                if (moonImg) {
+                    const moonTopPos = parseInt(moonImg.style.top) || moonTop;
+                    s.style.height = (moonTopPos - topOffset - 50) + 'px';
+                } else {
+                    s.style.height = (contactTop - topOffset - 80) + 'px';
+                }
+            }
+        });
     }
-}
+
+    function positionMargins() {
+        const contact = document.querySelector('.contact-section');
+        const footer = document.querySelector('.footer');
+
+        if (!contact) return;
+
+        contact.style.marginLeft = '';
+        contact.style.marginRight = '';
+        contact.style.paddingLeft = '';
+        contact.style.paddingRight = '';
+
+        const bodyStyle = window.getComputedStyle(document.body);
+        const paddingLeft = parseInt(bodyStyle.paddingLeft) || 0;
+        const paddingRight = parseInt(bodyStyle.paddingRight) || 0;
+
+        contact.style.marginLeft = '-' + paddingLeft + 'px';
+        contact.style.marginRight = '-' + paddingRight + 'px';
+        contact.style.paddingLeft = (paddingLeft + 30) + 'px';
+        contact.style.paddingRight = (paddingRight + 30) + 'px';
+
+        if (footer) {
+            footer.style.marginLeft = '-' + paddingLeft + 'px';
+            footer.style.marginRight = '-' + paddingRight + 'px';
+            footer.style.paddingLeft = (paddingLeft + 30) + 'px';
+            footer.style.paddingRight = (paddingRight + 30) + 'px';
+        }
+    }
+
+    function positionElements() {
+        positionMoonAndSides();
+        positionMargins();
+    }
 
     // ===== INITIALIZE EVERYTHING =====
     document.addEventListener('DOMContentLoaded', function () {
@@ -569,8 +688,9 @@ const animationDetails = [
         if (filmNext) filmNext.addEventListener('click', nextFilm);
 
         makeDraggable();
+        addStampHighlight();
 
-        // Force recalculation after moon image loads
+        // Position moon once after moon image loads
         const moonImg = document.querySelector('.right-moon');
         if (moonImg) {
             if (moonImg.complete) {
@@ -580,19 +700,35 @@ const animationDetails = [
             }
         }
 
-        // Initial position
         positionElements();
     });
 
-    // Re-run on full page load and on resize
+    // Recalculate on full page load (all images loaded = accurate offsetTops)
     window.addEventListener('load', positionElements);
+
+    // On resize, redo everything
     window.addEventListener('resize', positionElements);
 
     // ===== STICKY NAV ON SCROLL =====
-const stickyNav = document.getElementById('stickyNav');
-const mainNav = document.querySelector('.navbar');
+    const stickyNav = document.getElementById('stickyNav');
+    const mainNav = document.querySelector('.navbar');
 
-window.addEventListener('scroll', () => {
+ window.addEventListener('scroll', () => {
+    // Back to top visibility
+    if (window.scrollY > 500) {
+        backToTopBtn.classList.add('show');
+    } else {
+        backToTopBtn.classList.remove('show');
+    }
+
+    // Back to top color: purple (#7c3aed) → orange (#e98111) based on scroll position
+    const scrollProgress = window.scrollY / (document.body.scrollHeight - window.innerHeight);
+    const r = Math.round(124 + (233 - 124) * scrollProgress); // 124→233
+    const g = Math.round(58  + (129 - 58)  * scrollProgress); // 58→129
+    const b = Math.round(237 + (17  - 237) * scrollProgress); // 237→17
+    backToTopBtn.style.backgroundColor = `rgb(${r}, ${g}, ${b})`;
+
+    // Sticky nav
     const navBottom = mainNav.offsetTop + mainNav.offsetHeight;
     if (window.scrollY > navBottom) {
         stickyNav.classList.add('visible');
