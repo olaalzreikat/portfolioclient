@@ -37,15 +37,18 @@
     --nav-btn-text: #502800;
 }
 
+/* ===== PREVENT HORIZONTAL OVERFLOW GLOBALLY ===== */
+html, body {
+    max-width: 100%;
+    overflow-x: hidden;
+}
 
-/* ===== RESET & BASE ===== */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
     cursor: url('imgs/mouse.png'), auto;
 }
-
 
 /* ===== BODY ===== */
 body {
@@ -106,6 +109,7 @@ a, button, .nav-btn, .tab-btn, .nav-arrow, .gallery-item, .anim-gallery-item,
 .stamp:active, .stamp.dragging {
     cursor: url('imgs/mousehover.png'), grabbing !important;
 }
+
 /* ===== IN-BETWEEN DECORATIONS ===== */
 .inbetween-sun {
     display: flex;
@@ -116,7 +120,6 @@ a, button, .nav-btn, .tab-btn, .nav-arrow, .gallery-item, .anim-gallery-item,
     top: 10px;
     left: 20px;
     transition: transform 0.18s cubic-bezier(0.34, 1.56, 0.64, 1), filter 0.18s ease;
-
 }
 .inbetween-sun img { max-width: 1000px; width: 100%; }
 
@@ -129,7 +132,6 @@ a, button, .nav-btn, .tab-btn, .nav-arrow, .gallery-item, .anim-gallery-item,
     bottom: 25px;
     left: 20px;    
     transition: transform 0.18s cubic-bezier(0.34, 1.56, 0.64, 1), filter 0.18s ease;
-
 }
 .inbetween-star img { max-width: 1000px; width: 100%; }
 
@@ -142,10 +144,8 @@ a, button, .nav-btn, .tab-btn, .nav-arrow, .gallery-item, .anim-gallery-item,
     top: 40px;
     left: 20px;
     transition: transform 0.18s cubic-bezier(0.34, 1.56, 0.64, 1), filter 0.18s ease;
-
 }
 .inbetween-star1 img { max-width: 1000px; width: 100%; }
-
 
 .inbetween-moon {
     display: flex;
@@ -155,9 +155,9 @@ a, button, .nav-btn, .tab-btn, .nav-arrow, .gallery-item, .anim-gallery-item,
     position: relative;
     left: 20px;
     transition: transform 0.18s cubic-bezier(0.34, 1.56, 0.64, 1), filter 0.18s ease;
-
 }
 .inbetween-moon img { max-width: 1000px; width: 100%; }
+
 .inbetween-sun:hover,
 .inbetween-star:hover,
 .inbetween-star1:hover,
@@ -187,6 +187,7 @@ a, button, .nav-btn, .tab-btn, .nav-arrow, .gallery-item, .anim-gallery-item,
     will-change: transform;
     contain: layout style;
 }
+
 @keyframes glowingDance {
     0%   { transform: translateY(0) rotate(0deg);    filter: drop-shadow(0 0 5px rgba(255,255,255,0.4)); }
     25%  { transform: translateY(-10px) rotate(3deg);  filter: drop-shadow(0 0 12px rgba(255,255,255,0.7)); }
@@ -202,6 +203,7 @@ a, button, .nav-btn, .tab-btn, .nav-arrow, .gallery-item, .anim-gallery-item,
     75%  { transform: translateY(-10px) rotate(4deg) scale(1.08);  filter: drop-shadow(0 0 18px rgba(255,255,255,0.8)); }
     100% { transform: translateY(0) rotate(0deg) scale(1);       filter: drop-shadow(0 0 5px rgba(255,255,255,0.5)); }
 }
+
 .left-sun:hover   { animation: glowingDance 1.8s ease-in-out infinite; }
 .right-moon:hover { animation: moonGlowDance 2s ease-in-out infinite; }
 
@@ -217,7 +219,6 @@ a, button, .nav-btn, .tab-btn, .nav-arrow, .gallery-item, .anim-gallery-item,
     will-change: contents;
     contain: layout style paint;
     transition: transform 0.18s cubic-bezier(0.34, 1.56, 0.64, 1), filter 0.18s ease;
-
 }
 .side-decoration-container:hover {
     transform: translateY(-8px);
@@ -246,7 +247,6 @@ a, button, .nav-btn, .tab-btn, .nav-arrow, .gallery-item, .anim-gallery-item,
     mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,1) 80%, rgba(0,0,0,0) 100%);
     -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,1) 80%, rgba(0,0,0,0) 100%);
 }
-
 
 /* ===== STICKY NAV ===== */
 .sticky-nav {
@@ -287,6 +287,7 @@ a, button, .nav-btn, .tab-btn, .nav-arrow, .gallery-item, .anim-gallery-item,
         0 7px 8px rgba(0,0,0,0.25),
         inset 0 2px 0 rgba(255,255,255,0.5);
 }
+
 /* ===== PARTICLE CANVAS ===== */
 #particle-canvas {
     position: absolute;
@@ -344,9 +345,8 @@ a, button, .nav-btn, .tab-btn, .nav-arrow, .gallery-item, .anim-gallery-item,
     border-top-right-radius: 320px;
     overflow: visible;
     z-index: 5;
-animation: archEntrance 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) 0.1s both,
+    animation: archEntrance 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) 0.1s both;
 }
-
 
 @keyframes archEntrance {
     0%   { transform: scaleY(0); transform-origin: bottom center; opacity: 0; }
@@ -371,6 +371,7 @@ animation: archEntrance 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) 0.1s both,
     0%, 100% { opacity: 0.5; }
     50%       { opacity: 1; }
 }
+
 /* ===== LOGO IMAGE ===== */
 .logo-img {
     width: 220px;
@@ -386,7 +387,6 @@ animation: archEntrance 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) 0.1s both,
     will-change: transform;
 }
 
-
 @keyframes logoEntrance {
     0%   { transform: translateY(-60px) scale(0.5); opacity: 0; }
     60%  { transform: translateY(10px) scale(1.08); opacity: 1; }
@@ -398,6 +398,7 @@ animation: archEntrance 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) 0.1s both,
     35%       { transform: translateY(-12px) rotate(2deg); }
     70%       { transform: translateY(-5px) rotate(-1.5deg); }
 }
+
 @keyframes logoSpin {
     0%   { transform: scale(1) rotate(0deg); }
     40%  { transform: scale(1.2) rotate(180deg); }
@@ -428,6 +429,7 @@ animation: archEntrance 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) 0.1s both,
     animation: boxEntrance 0.7s cubic-bezier(0.34, 1.56, 0.64, 1) 0.05s both,
                boxGlow 5s ease-in-out 1.5s infinite;
 }
+
 @keyframes boxEntrance {
     0%   { transform: scaleX(0.7) scaleY(0.85); opacity: 0; }
     70%  { transform: scaleX(1.02) scaleY(1.01); }
@@ -453,6 +455,7 @@ animation: archEntrance 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) 0.1s both,
     top: -3px;
     border-radius: 0;
 }
+
 /* ===== VANNIANNART TITLE ===== */
 .nav-title {
     font-size: 4rem;
@@ -484,6 +487,7 @@ animation: archEntrance 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) 0.1s both,
     70%  { transform: scale(1.05) translateY(-4px); opacity: 1; letter-spacing: 10px; }
     100% { transform: scale(1) translateY(0);       opacity: 1; letter-spacing: 8px; }
 }
+
 /* ===== LETTER HOVER ===== */
 .nav-letter {
     display: inline-block;
@@ -512,6 +516,7 @@ animation: archEntrance 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) 0.1s both,
         0 0 80px #ff6600,
         0 0 120px rgba(255,40,180,0.7);
 }
+
 /* ===== SUBTITLE PILL ===== */
 .nav-subtitle {
     font-size: 0.95rem;
@@ -542,6 +547,7 @@ animation: archEntrance 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) 0.1s both,
         0 6px 20px rgba(233,129,17,0.6),
         inset 0 1px 0 rgba(255,255,255,0.35);
 }
+
 .nav-subtitle::before {
     content: '';
     position: absolute;
@@ -582,6 +588,7 @@ animation: archEntrance 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) 0.1s both,
     50%  { transform: rotate(180deg) scale(1.4); }
     100% { transform: rotate(360deg) scale(1); }
 }
+
 /* ===== NAV LINKS ===== */
 .nav-links {
     display: flex;
@@ -593,7 +600,7 @@ animation: archEntrance 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) 0.1s both,
     z-index: 2;
 }
 
-/* ===== NAV BUTTONS — PURPLE ===== */
+/* ===== NAV BUTTONS ===== */
 .nav-btn {
     border: 3px solid #2a0050;
     padding: 13px 42px;
@@ -623,6 +630,7 @@ animation: archEntrance 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) 0.1s both,
     -webkit-text-stroke: 1.5px #2a0050;
     paint-order: stroke fill;
 }
+
 .nav-links .nav-btn:nth-child(1) { animation-delay: 0.65s; }
 .nav-links .nav-btn:nth-child(2) { animation-delay: 0.75s; }
 .nav-links .nav-btn:nth-child(3) { animation-delay: 0.85s; }
@@ -632,6 +640,7 @@ animation: archEntrance 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) 0.1s both,
     0%   { transform: scale(0) translateY(16px); opacity: 0; }
     100% { transform: scale(1) translateY(0);    opacity: 1; }
 }
+
 .nav-btn::before {
     content: '';
     position: absolute;
@@ -658,6 +667,7 @@ animation: archEntrance 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) 0.1s both,
 .nav-btn:hover::after {
     animation: btnShimmer 0.5s ease forwards;
 }
+
 @keyframes btnShimmer {
     0%   { left: -80%; opacity: 1; }
     100% { left: 120%; opacity: 0; }
@@ -681,6 +691,7 @@ animation: archEntrance 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) 0.1s both,
         0 3px 4px rgba(0,0,0,0.2),
         inset 0 2px 0 rgba(255,255,255,0.3);
 }
+
 .nav-btn.active {
     background: linear-gradient(135deg, #e8b350 0%, #bf7e1c 100%);
     color: var(--white) !important;
@@ -700,6 +711,7 @@ animation: archEntrance 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) 0.1s both,
     0%   { transform: translate(0, 0) scale(1.2); opacity: 1; }
     100% { transform: translate(var(--tx), var(--ty)) scale(0); opacity: 0; }
 }
+
 /* ===== FLOATING MAGICAL ORBS ===== */
 .navbar-orb {
     position: absolute;
@@ -718,6 +730,7 @@ animation: archEntrance 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) 0.1s both,
     90%  { opacity: 0.4; }
     100% { transform: translate(var(--dx), var(--dy)) scale(1.2); opacity: 0; }
 }
+
 /* ===== HERO SECTION ===== */
 .hero-section { padding: 90px 30px; }
 
@@ -743,7 +756,6 @@ animation: archEntrance 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) 0.1s both,
     contain: layout style;
 }
 
-/* ===== HERO NAME — readable on busy illustration background ===== */
 .hero-letter {
     display: inline-block;
     transition: transform 0.18s cubic-bezier(0.34, 1.56, 0.64, 1),
@@ -816,6 +828,7 @@ animation: archEntrance 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) 0.1s both,
 .hero-roles .role-item:nth-child(1) { justify-self: start; }
 .hero-roles .role-item:nth-child(2) { justify-self: center; }
 .hero-roles .role-item:nth-child(3) { justify-self: end; }
+
 .role-item {
     font-size: 1.2rem;
     font-weight: 700;
@@ -844,6 +857,7 @@ animation: archEntrance 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) 0.1s both,
 }
 
 .role-item:hover { transform: translateY(-5px); }
+
 .hero-text {
     grid-column: 1;
     grid-row: 1;
@@ -863,6 +877,7 @@ animation: archEntrance 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) 0.1s both,
     object-fit: contain;
     margin-top: 40px;
 }
+
 .work-button {
     display: flex;
     gap: 10px;
@@ -896,8 +911,6 @@ animation: archEntrance 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) 0.1s both,
     pointer-events: none;
 }
 
-
-
 /* ===== SECTION TITLES ===== */
 .section-title {
     font-size: 2rem;
@@ -928,7 +941,6 @@ animation: archEntrance 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) 0.1s both,
     border-radius: 2px;
 }
 
-
 /* ===== WORK/ILLUSTRATION SECTION ===== */
 .work-section { padding: 100px 30px 150px; }
 
@@ -944,8 +956,6 @@ animation: archEntrance 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) 0.1s both,
     margin-bottom: 50px;
     flex-wrap: wrap;
 }
-
-
 
 /* ===== TAB BUTTONS ===== */
 .tab-btn {
@@ -984,6 +994,7 @@ animation: archEntrance 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) 0.1s both,
 
 .tab-content { display: none; animation: fadeIn 0.5s ease-in; }
 .tab-content.active { display: block; }
+
 /* ===== ILLUSTRATION SHOWCASE ===== */
 .illustration-showcase {
     border: 10px solid #f7ce87;
@@ -1005,6 +1016,7 @@ animation: archEntrance 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) 0.1s both,
     align-items: center;
     justify-content: center;
 }
+
 .illustration-display .illus-inner {
     max-width: 100%;
     height: 100%;
@@ -1037,8 +1049,6 @@ animation: archEntrance 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) 0.1s both,
     overflow: hidden;
     contain: layout style paint;
 }
-
-
 
 .illustration-display .illus-inner img {
     display: block;
@@ -1136,7 +1146,6 @@ animation: archEntrance 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) 0.1s both,
     contain: layout style paint;
 }
 
-
 .gallery-item img {
     width: 100%;
     height: 100%;
@@ -1145,6 +1154,7 @@ animation: archEntrance 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) 0.1s both,
     position: relative;
     z-index: 1;
 }
+
 .gallery-item:hover { transform: translate(-3px, -3px); }
 
 .gallery-item::after {
@@ -1171,6 +1181,7 @@ animation: archEntrance 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) 0.1s both,
     will-change: transform;
     contain: strict;
 }
+
 .gallery-item .overlay {
     position: absolute;
     top: 0; left: 0;
@@ -1197,7 +1208,6 @@ animation: archEntrance 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) 0.1s both,
     padding: 10px 20px;
     font-family: 'Magic', cursive;
 }
-
 
 /* ===== ANIMATIONS SECTION ===== */
 .animations-section { padding: 80px 30px; }
@@ -1238,9 +1248,9 @@ animation: archEntrance 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) 0.1s both,
     color: var(--white);
     transform: scale(1.1);
 }
+
 .animation-showcase .nav-arrow:first-of-type { left: 40px; }
 .animation-showcase .nav-arrow:last-of-type  { right: 40px; }
-
 
 .video-placeholder {
     width: 100%;
@@ -1285,6 +1295,7 @@ animation: archEntrance 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) 0.1s both,
     overflow: hidden;
     contain: layout style paint;
 }
+
 .video-placeholder .anim-inner-wrap::after {
     content: 'HANA TAYLOR';
     position: absolute;
@@ -1308,8 +1319,6 @@ animation: archEntrance 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) 0.1s both,
     max-width: 100%;
     object-fit: contain;
 }
-
-
 
 /* ===== ANIMATIONS GALLERY ===== */
 .anim-gallery-container {
@@ -1918,7 +1927,6 @@ animation: archEntrance 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) 0.1s both,
     100% { opacity: 1; transform: translateY(0); }
 }
 
-/* Stars burst ring on intro */
 .intro-stars {
     position: absolute;
     inset: 0;
@@ -1937,7 +1945,9 @@ animation: archEntrance 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) 0.1s both,
     0%   { transform: translate(0,0) scale(0); opacity: 0; }
     20%  { opacity: 1; }
     100% { transform: translate(var(--fx), var(--fy)) scale(1.5); opacity: 0; }
-}  
+}
+
+/* ===== ABOUT SECTION ===== */
 .about-section { padding: 100px 30px; }
 
 .about-container {
@@ -2072,7 +2082,6 @@ animation: archEntrance 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) 0.1s both,
 
 .recognition-photo:hover { opacity: 0.9; }
 
-
 /* ===== CONTACT SECTION ===== */
 .contact-section {
     padding: 160px 30px 100px;
@@ -2104,9 +2113,10 @@ animation: archEntrance 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) 0.1s both,
 
 .postcard-stamp-border {
     width: 1000px;
-    max-width: 1200px;
+    max-width: 100%;
     padding: 12px;
     margin-top: 70px;
+    box-sizing: border-box;
 }
 
 .contact-stamp.highlight {
@@ -2382,6 +2392,12 @@ animation: archEntrance 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) 0.1s both,
     from { opacity: 0; transform: translateY(30px); }
     to   { opacity: 1; transform: translateY(0); }
 }
+
+/* ===== MOBILE CONTACT CARD (hidden on desktop, shown via 768px media query) ===== */
+.mobile-contact-card {
+    display: none;
+}
+
 /* ===== FOOTER ===== */
 .footer {
     padding: 40px 30px;
@@ -2395,8 +2411,6 @@ animation: archEntrance 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) 0.1s both,
     position: relative;
     z-index: 2;
 }
-
-
 
 /* ===== BACK TO TOP ===== */
 #backToTop {
@@ -2437,9 +2451,9 @@ animation: archEntrance 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) 0.1s both,
     pointer-events: auto;
     transform: translateY(0) scale(1);
 }
+
 /* =====================================================
-   RESPONSIVE MEDIA QUERIES FOR VANNIANNART PORTFOLIO
-   Add this at the END of your existing CSS file
+   RESPONSIVE
    ===================================================== */
 
 /* ===== LARGE TABLETS (max 1200px) ===== */
@@ -2454,9 +2468,10 @@ animation: archEntrance 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) 0.1s both,
   }
 
   .nav-title-box {
-    min-width: auto;
+    min-width: unset !important;
     width: 90%;
     padding: 45px 40px 36px;
+    box-sizing: border-box;
   }
 
   .nav-title {
@@ -2466,7 +2481,7 @@ animation: archEntrance 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) 0.1s both,
 
   .hero-content {
     padding: 80px 60px;
-    height: auto;
+    height: auto !important;
     min-height: 700px;
   }
 
@@ -2488,14 +2503,18 @@ animation: archEntrance 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) 0.1s both,
     width: 380px;
   }
 
-  /* ── CONTACT: hide draggable stamps sidebar, instruction, and decorative stamp ── */
+  .postcard-stamp-border {
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box;
+  }
+
   .stamps-wrapper,
   .stamp-instruction,
   .contact-stamp {
     display: none !important;
   }
 
-  /* ── CONTACT: make postcard fill the full container ── */
   .contact-container {
     flex-direction: column;
     gap: 0;
@@ -2507,7 +2526,6 @@ animation: archEntrance 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) 0.1s both,
     position: relative;
   }
 
-  /* ── STAMP CAROUSEL ── */
   .stamp-carousel {
     display: flex !important;
     position: absolute;
@@ -2614,10 +2632,180 @@ animation: archEntrance 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) 0.1s both,
     border-color: var(--black);
   }
 }
-/* ── Hide carousel on desktop (it's built into HTML but invisible above 1200px) ── */
+
 @media (min-width: 1201px) {
-  .stamp-carousel {
+ body {
+    padding-left: 80px;
+    padding-right: 80px;
+  }
+
+  .side-decoration-container {
+    width: 80px;
+  }
+
+  .nav-title-box {
+    min-width: unset !important;
+    width: 90%;
+    padding: 45px 40px 36px;
+    box-sizing: border-box;
+  }
+
+  .nav-title {
+    font-size: 3rem;
+    letter-spacing: 12px;
+  }
+
+  .hero-content {
+    padding: 80px 60px;
+    height: auto !important;
+    min-height: 700px;
+  }
+
+  .hero-name {
+    font-size: 3rem;
+  }
+
+  .film-container {
+    gap: 30px;
+    padding: 40px;
+  }
+
+  .about-container {
+    grid-template-columns: 380px 1fr;
+    padding: 50px 50px;
+  }
+
+  .profile-placeholder {
+    width: 380px;
+  }
+
+  .postcard-stamp-border {
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box;
+  }
+
+  .stamps-wrapper,
+  .stamp-instruction,
+  .contact-stamp {
     display: none !important;
+  }
+
+  .contact-container {
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .postcard-background {
+    flex: none;
+    width: 100%;
+    position: relative;
+  }
+
+  .stamp-carousel {
+    display: flex !important;
+    position: absolute;
+    top: 100px;
+    left: 740px;
+    z-index: 20;
+    align-items: center;
+    gap: 5px;
+    width: 225px;
+  }
+
+  .stamp-carousel__track {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .stamp-carousel__img {
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    padding: 3px;
+    background-color: var(--black);
+    border: 4px solid #0066ff;
+    box-shadow: inset 0 0 0 2px white;
+    background-image:
+      radial-gradient(circle at center, white 30%, transparent 30%),
+      radial-gradient(circle at center, white 30%, transparent 30%),
+      radial-gradient(circle at center, white 30%, transparent 30%),
+      radial-gradient(circle at center, white 30%, transparent 30%),
+      radial-gradient(circle at center, white 30%, transparent 30%),
+      radial-gradient(circle at center, white 30%, transparent 30%),
+      radial-gradient(circle at center, white 30%, transparent 30%),
+      radial-gradient(circle at center, white 30%, transparent 30%);
+    background-size:
+      7px 7px, 7px 7px, 7px 7px, 7px 7px,
+      6px 6px, 6px 6px, 6px 6px, 6px 6px;
+    background-position:
+      0 0, 100% 0, 100% 100%, 0 100%,
+      3px 0, 100% 3px, 3px 100%, 0 3px;
+    background-repeat:
+      no-repeat, no-repeat, no-repeat, no-repeat,
+      repeat-x, repeat-y, repeat-x, repeat-y;
+    transition: transform 0.2s ease, filter 0.2s ease;
+    display: block;
+    flex-shrink: 0;
+  }
+
+  .stamp-carousel__img:hover {
+    transform: scale(1.12) rotate(-4deg);
+    filter: drop-shadow(0 3px 8px rgba(0,0,0,0.4))
+            drop-shadow(0 0 8px rgba(247,163,85,0.6));
+  }
+
+  .stamp-carousel__btn {
+    width: 30px;
+    height: 30px;
+    border: 2px solid var(--black);
+    border-radius: 50%;
+    background: rgba(255,255,255,0.92);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: url('imgs/mousehover.png'), pointer !important;
+    transition: background 0.2s ease, transform 0.2s ease;
+    flex-shrink: 0;
+    padding: 0;
+  }
+
+  .stamp-carousel__btn:hover {
+    background: var(--purple-primary);
+    transform: scale(1.18);
+  }
+
+  .stamp-carousel__btn svg {
+    width: 10px;
+    height: 10px;
+    pointer-events: none;
+  }
+
+  .stamp-carousel__dots {
+    display: flex;
+    gap: 4px;
+    justify-content: center;
+    position: absolute;
+    bottom: -12px;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  .stamp-carousel__dot {
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.45);
+    border: 1px solid rgba(255,255,255,0.7);
+    transition: background 0.2s ease;
+    cursor: pointer;
+  }
+
+  .stamp-carousel__dot.active {
+    background: var(--purple-primary);
+    border-color: var(--black);
   }
 }
 
@@ -2628,7 +2816,6 @@ animation: archEntrance 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) 0.1s both,
     padding-right: 20px;
   }
 
-  /* Hide side decorations on smaller screens */
   .side-decoration-container {
     display: none;
   }
@@ -2644,11 +2831,11 @@ animation: archEntrance 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) 0.1s both,
     right: 6px;
   }
 
-  /* Nav */
   .nav-title-box {
-    min-width: auto;
+    min-width: unset !important;
     width: 100%;
     padding: 45px 20px 36px;
+    box-sizing: border-box;
   }
 
   .nav-title {
@@ -2666,10 +2853,9 @@ animation: archEntrance 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) 0.1s both,
     font-size: 0.95rem;
   }
 
-  /* Hero */
   .hero-content {
     padding: 60px 40px;
-    height: auto;
+    height: auto !important;
     min-height: 600px;
     grid-template-columns: 1fr;
   }
@@ -2694,7 +2880,6 @@ animation: archEntrance 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) 0.1s both,
     display: none;
   }
 
-  /* Film section */
   .film-container {
     grid-template-columns: 1fr;
     gap: 30px;
@@ -2705,7 +2890,6 @@ animation: archEntrance 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) 0.1s both,
     height: 300px;
   }
 
-  /* About */
   .about-container {
     grid-template-columns: 1fr;
     padding: 40px 30px;
@@ -2718,18 +2902,15 @@ animation: archEntrance 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) 0.1s both,
     margin: 0 auto;
   }
 
-  /* Illustration display */
   .illustration-display {
     width: 100%;
     height: 500px;
   }
 
-  /* Animation gallery grid */
   .anim-gallery-grid {
     grid-template-columns: repeat(2, 1fr);
   }
 
-  /* Contact */
   .contact-container {
     flex-direction: column;
     gap: 30px;
@@ -2738,6 +2919,12 @@ animation: archEntrance 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) 0.1s both,
   .postcard-background {
     flex: none;
     width: 100%;
+  }
+
+  .postcard-stamp-border {
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box;
   }
 
   .stamps-wrapper {
@@ -2771,7 +2958,6 @@ animation: archEntrance 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) 0.1s both,
     top: 30px;
     left: 30px;
   }
-  
 
   .contact-logo img {
     width: 200px;
@@ -2801,13 +2987,11 @@ animation: archEntrance 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) 0.1s both,
     padding-right: 12px;
   }
 
-  /* Hide decorative side images on mobile */
   .left-sun,
   .right-moon {
     display: none;
   }
 
-  /* Inbetween decorations */
   .inbetween-sun img,
   .inbetween-star img,
   .inbetween-star1 img,
@@ -2815,10 +2999,12 @@ animation: archEntrance 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) 0.1s both,
     max-width: 100%;
   }
 
-  /* Nav title */
   .nav-title-box {
     padding: 40px 16px 30px;
     border-radius: 40px 40px 30px 30px;
+    min-width: unset !important;
+    width: 100%;
+    box-sizing: border-box;
   }
 
   .nav-title {
@@ -2863,7 +3049,6 @@ animation: archEntrance 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) 0.1s both,
     white-space: nowrap;
   }
 
-  /* Hero */
   .hero-section {
     padding: 50px 12px;
   }
@@ -2873,7 +3058,7 @@ animation: archEntrance 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) 0.1s both,
     min-height: 480px;
     border-radius: 40px;
     grid-template-columns: 1fr;
-    height: auto;
+    height: auto !important;
   }
 
   .hero-name {
@@ -2909,7 +3094,6 @@ animation: archEntrance 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) 0.1s both,
     bottom: 20px;
   }
 
-  /* Work section */
   .work-section {
     padding: 60px 12px 80px;
   }
@@ -2924,7 +3108,6 @@ animation: archEntrance 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) 0.1s both,
     font-size: 0.75rem;
   }
 
-  /* Illustration showcase */
   .illustration-showcase {
     padding: 16px 10px;
     border-radius: 30px;
@@ -2946,14 +3129,12 @@ animation: archEntrance 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) 0.1s both,
   .nav-arrow:first-of-type { left: 10px; }
   .nav-arrow:last-of-type  { right: 10px; }
 
-  /* Gallery grid */
   .gallery-grid {
     grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
     gap: 16px;
     padding: 16px;
   }
 
-  /* Animations section */
   .animations-section {
     padding: 50px 12px;
   }
@@ -2973,7 +3154,6 @@ animation: archEntrance 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) 0.1s both,
     gap: 16px;
   }
 
-  /* Film section */
   .films-section {
     padding: 80px 12px;
   }
@@ -2999,7 +3179,6 @@ animation: archEntrance 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) 0.1s both,
     padding: 20px;
   }
 
-  /* About section */
   .about-section {
     padding: 60px 12px;
   }
@@ -3031,7 +3210,6 @@ animation: archEntrance 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) 0.1s both,
     font-size: 0.9rem;
   }
 
-  /* Recognition */
   .recognition-photos-row {
     flex-direction: column;
   }
@@ -3046,117 +3224,173 @@ animation: archEntrance 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) 0.1s both,
     padding: 20px;
   }
 
-  /* Contact section */
+  /* ===== CONTACT: full mobile rebuild ===== */
   .contact-section {
-    padding: 80px 12px 60px;
+    padding: 60px 16px 60px;
   }
 
+  /* Hide all postcard/stamp elements */
+  .postcard-background,
+  .postcard-stamp-border,
+  .postcard-left-text,
+  .contact-stamp,
+  .stamps-wrapper,
+  .stamps-container,
+  .stamp-instruction,
+  .instruction-arrow,
+  .stamp-carousel {
+    display: none !important;
+  }
+
+  /* Container: centered column */
   .contact-container {
     flex-direction: column;
-    gap: 20px;
+    align-items: center;
+    gap: 0;
     min-height: auto;
+    max-width: 480px;
+    margin: 0 auto;
   }
 
-  .postcard-background {
-    flex: none;
+  /* Mobile contact card */
+  .mobile-contact-card {
+    display: flex !important;
+    flex-direction: column;
+    align-items: center;
+    gap: 28px;
     width: 100%;
-    position: relative;
+    background: rgba(255, 255, 255, 0.12);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 3px solid rgba(255, 255, 255, 0.25);
+    border-radius: 30px;
+    padding: 36px 28px 32px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
   }
 
-  .postcard-stamp-border {
+  /* Logo inside card */
+  .mobile-contact-card .contact-logo {
+    display: block !important;
+    position: static !important;
+    top: auto !important;
+    left: auto !important;
+    transform: none !important;
+    animation: none !important;
+  }
+
+  .mobile-contact-card .contact-logo img {
+    width: 100px !important;
+    filter: drop-shadow(0 4px 12px rgba(0,0,0,0.3));
+  }
+
+  /* Form inside card */
+  .mobile-contact-card .postcard-form-area {
+    display: block !important;
+    position: static !important;
+    width: 100% !important;
+    right: auto !important;
+    top: auto !important;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+
+  .mobile-contact-card .postcard-form-area input,
+  .mobile-contact-card .postcard-form-area textarea {
     width: 100%;
-    margin-top: 20px;
-    padding: 8px;
-  }
-
-  /* Stack stamp contact form elements */
-  .contact-logo {
-    top: 20px;
-    left: 20px;
-  }
-
-  .contact-logo img {
-    width: 130px;
-  }
-
-  .contact-stamp {
-    top: 20px;
-    right: 20px;
-  }
-
-  .contact-stamp img {
-    width: 80px;
-  }
-
-  .postcard-left-text {
-    font-size: 1.1rem;
-    left: 20px;
-    max-width: 180px;
-    top: 58%;
-  }
-
-  .postcard-form-area {
-    position: static;
-    width: 100%;
-    padding: 20px;
-    margin-top: 10px;
-  }
-
-  .postcard-form-area input,
-  .postcard-form-area textarea {
-    margin-bottom: 18px;
+    background: rgba(255, 255, 255, 0.12);
+    border: none;
+    border-bottom: 2px solid rgba(255, 255, 255, 0.45);
+    border-radius: 0;
+    padding: 12px 8px;
     font-size: 1rem;
+    color: #ffffff;
+    margin-bottom: 20px;
+    transition: border-bottom-color 0.2s ease;
   }
 
-  .stamps-wrapper {
+  .mobile-contact-card .postcard-form-area input:focus,
+  .mobile-contact-card .postcard-form-area textarea:focus {
+    outline: none;
+    border-bottom-color: #ffffff;
+  }
+
+  .mobile-contact-card .postcard-form-area input::placeholder,
+  .mobile-contact-card .postcard-form-area textarea::placeholder {
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 0.9rem;
+  }
+
+  .mobile-contact-card .postcard-form-area textarea {
+    min-height: 90px;
+    resize: none;
+  }
+
+  .mobile-contact-card .postcard-form-area button {
     width: 100%;
-    min-width: unset;
-    height: auto;
-    min-height: unset;
-    padding-top: 20px;
+    background: linear-gradient(135deg, hsl(282, 100%, 55%) 0%, hsl(310, 90%, 45%) 100%);
+    color: white;
+    border: none;
+    padding: 14px;
+    font-size: 1rem;
+    font-weight: 700;
+    border-radius: 50px;
+    margin-top: 8px;
+    letter-spacing: 1px;
+    box-shadow: 0 4px 16px rgba(150, 0, 200, 0.4);
+    transition: opacity 0.2s ease, transform 0.2s ease;
   }
 
-  .stamps-container {
-    position: static;
+  .mobile-contact-card .postcard-form-area button:hover {
+    opacity: 0.9;
+    transform: translateY(-2px);
+  }
+
+  /* Social icons inside card */
+  .mobile-contact-card .lets-connect {
+    display: flex !important;
+    position: static !important;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
     width: 100%;
-    height: auto;
-    min-height: unset;
-    display: flex;
-    gap: 16px;
-    justify-content: center;
-    flex-wrap: wrap;
   }
 
-  .stamps-container .stamp {
-    position: static;
-    width: 120px;
-  }
-
-  .stamp-instruction {
-    position: static;
+  .mobile-contact-card .lets-connect h4 {
+    font-size: 1.1rem;
+    color: #f0d8ff;
+    letter-spacing: 2px;
+    animation: none;
     transform: none;
-    text-align: center;
-    margin-bottom: 10px;
-    display: block;
   }
 
-  .instruction-arrow {
-    display: none;
+  .mobile-contact-card .social-icons {
+    justify-content: center;
+    gap: 14px;
   }
 
-  /* Section titles */
+  .mobile-contact-card .social-icons a {
+    width: 52px;
+    height: 52px;
+    border-radius: 14px;
+    background-color: rgba(140, 0, 210, 0.7);
+    border: 2px solid rgba(255, 255, 255, 0.2);
+  }
+
+  .mobile-contact-card .social-icons a:hover {
+    background-color: hsl(282, 100%, 45%);
+    transform: scale(1.1);
+  }
+
   .section-title {
     font-size: 1.5rem;
     letter-spacing: 2px;
   }
 
-  /* Footer */
   .footer {
     font-size: 0.9rem;
     padding: 30px 20px;
   }
 
-  /* Back to top */
   #backToTop {
     bottom: 16px;
     right: 16px;
@@ -3164,7 +3398,6 @@ animation: archEntrance 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) 0.1s both,
     height: 48px;
   }
 
-  /* Sticky nav wrapping */
   .sticky-nav {
     gap: 8px;
     padding: 10px 8px;
@@ -3179,7 +3412,7 @@ animation: archEntrance 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) 0.1s both,
 /* ===== SMALL MOBILE (max 480px) ===== */
 @media (max-width: 480px) {
   .nav-title {
-    font-size: 1.4rem;
+    font-size: 1rem;
     letter-spacing: 2px;
   }
 
@@ -3220,6 +3453,7 @@ animation: archEntrance 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) 0.1s both,
   .hero-content {
     min-height: 400px;
     border-radius: 30px;
+    height: auto !important;
   }
 
   .hero-roles {
@@ -3257,7 +3491,6 @@ animation: archEntrance 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) 0.1s both,
     grid-template-columns: 1fr;
   }
 
-  /* Make form area full width on tiny screens */
   .postcard-form-area {
     padding: 16px;
   }
