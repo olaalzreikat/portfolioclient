@@ -79,7 +79,6 @@ function showAnimTab(tabName) {
     section.querySelectorAll('.anim-tab').forEach(btn => {
         if (btn.getAttribute('onclick').includes(tabName)) btn.classList.add('active');
     });
-    // When switching to gallery, re-trigger observer for visible videos
     if (tabName === 'anim-gallery') {
         setTimeout(() => {
             document.querySelectorAll('#animGalleryGrid video').forEach(v => {
@@ -124,7 +123,6 @@ const images = [
 ];
 let currentImageIndex = 0;
 
-// Preload adjacent images for faster navigation
 function preloadAdjacentImages() {
     const nextIdx = (currentImageIndex + 1) % images.length;
     const prevIdx = (currentImageIndex - 1 + images.length) % images.length;
@@ -163,8 +161,6 @@ function populateGallery() {
     const galleryGrid = document.getElementById('galleryGrid');
     if (!galleryGrid) return;
     galleryGrid.innerHTML = '';
-
-    // Use a document fragment for better performance
     const fragment = document.createDocumentFragment();
     images.forEach((img, index) => {
         const item = document.createElement('div');
@@ -172,7 +168,7 @@ function populateGallery() {
         const imgEl = document.createElement('img');
         imgEl.src = img.src;
         imgEl.alt = img.title;
-        imgEl.loading = 'lazy'; // lazy load all gallery images
+        imgEl.loading = 'lazy';
         imgEl.decoding = 'async';
         const overlay = document.createElement('div');
         overlay.className = 'overlay';
@@ -229,11 +225,6 @@ const animationCategories = [
         { src: 'vids/stopmotion-intro1.mp4', title: 'intro', thumbnail: 'vids/stopmotion-intro1.mp4' },
         { src: 'vids/charcoal.mp4', title: 'charcoal', thumbnail: 'vids/charcoal.mp4' },
     ]},
-    // { section: 'Storyboarding', videos: [
-    //     { src: 'vids/storyboard1.mp4', title: 'Storyboard 1', thumbnail: 'vids/storyboard1.mp4' },
-    //     { src: 'vids/storyboard2.mp4', title: 'Storyboard 2', thumbnail: 'vids/storyboard2.mp4' },
-    //     { src: 'vids/storyboard3.mp4', title: 'Storyboard 3', thumbnail: 'vids/storyboard3.mp4' },
-    // ]}
 ];
 
 const allAnimations = animationCategories.flatMap(cat => cat.videos);
@@ -258,9 +249,7 @@ function populateAnimGallery() {
     const container = document.getElementById('animGalleryGrid');
     if (!container) return;
     container.innerHTML = '';
-
     const fragment = document.createDocumentFragment();
-
     animationCategories.forEach(category => {
         const section = document.createElement('div');
         section.className = 'anim-gallery-section';
@@ -270,18 +259,16 @@ function populateAnimGallery() {
         section.appendChild(title);
         const grid = document.createElement('div');
         grid.className = 'anim-gallery-grid';
-
         category.videos.forEach(video => {
             const item = document.createElement('div');
             item.className = 'anim-gallery-item';
             let mediaEl;
             const thumbExt = video.thumbnail.split('.').pop().toLowerCase();
-
             if (thumbExt === 'gif') {
                 mediaEl = document.createElement('img');
                 mediaEl.src = video.thumbnail;
                 mediaEl.alt = video.title;
-                mediaEl.loading = 'lazy'; // lazy load GIFs too
+                mediaEl.loading = 'lazy';
                 mediaEl.decoding = 'async';
                 mediaEl.style.cssText = 'width:100%;height:100%;object-fit:cover;display:block;';
             } else {
@@ -289,15 +276,13 @@ function populateAnimGallery() {
                 mediaEl.muted = true;
                 mediaEl.playsInline = true;
                 mediaEl.loop = true;
-                // NO autoplay attribute — IntersectionObserver handles this
-                mediaEl.preload = 'none'; // don't preload until visible
+                mediaEl.preload = 'none';
                 mediaEl.style.cssText = 'width:100%;height:100%;object-fit:cover;display:block;';
                 const source = document.createElement('source');
                 source.src = video.thumbnail;
                 source.type = 'video/mp4';
                 mediaEl.appendChild(source);
             }
-
             const overlay = document.createElement('div');
             overlay.className = 'overlay';
             overlay.innerHTML = '<div class="play-icon"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div><span>' + video.title + '</span>';
@@ -308,17 +293,13 @@ function populateAnimGallery() {
                 if (idx !== -1) { currentVideoIndex = idx; updateVideoDisplay(); showAnimTab('anim-closeup'); }
             });
             grid.appendChild(item);
-
-            // Observe video for lazy play — only for video elements
             if (mediaEl.tagName === 'VIDEO') {
                 videoObserver.observe(mediaEl);
             }
         });
-
         section.appendChild(grid);
         fragment.appendChild(section);
     });
-
     container.appendChild(fragment);
 }
 
@@ -344,7 +325,8 @@ const films = [
     },
     {
         url: 'https://www.youtube.com/watch?v=NrgbSkulAZk', title: 'BODY',
-        description: 'Body follows a young woman and her internal struggle as she juggles the complex challenge of chasing her dreams and the changing demands of her physical body.', year: '2025', genre: 'Animation', duration: '', roles: 'Guest Colorist',
+        description: 'Body follows a young woman and her internal struggle as she juggles the complex challenge of chasing her dreams and the changing demands of her physical body.',
+        year: '2025', genre: 'Animation', duration: '', roles: 'Guest Colorist',
         imdb: '', youtubeLink: 'https://www.youtube.com/watch?v=NrgbSkulAZk',
         behindScenesLabel: 'Work', artworkType: 'videos', noWatermark: true,
         artwork: ['vids/BODY_CUT1.mp4','vids/BODY_CUT2.mp4','vids/BODY_CUT3.mp4']
@@ -367,7 +349,6 @@ function updateFilmDisplay() {
 
     const f = films[currentFilmIndex];
     const vid = getYouTubeID(f.url);
-    // Use lazy loading iframe attribute for YouTube embeds
     vp.innerHTML = '<iframe width="100%" height="100%" src="https://www.youtube.com/embed/' + vid + '" title="' + f.title + '" frameborder="0" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen style="border-radius: 20px;"></iframe>';
 
     if (filmTag) filmTag.textContent = f.title;
@@ -384,7 +365,6 @@ function updateFilmDisplay() {
     }
     if (processTitle) processTitle.textContent = f.behindScenesLabel || 'Behind the Scenes';
     if (artworkHeading) artworkHeading.textContent = f.artworkType === 'videos' ? 'Work:' : 'Artwork:';
-
     if (artworkGrid) {
         artworkGrid.innerHTML = '';
         if (f.artwork && f.artwork.length > 0) {
@@ -397,9 +377,9 @@ function updateFilmDisplay() {
                     v.loop = true;
                     v.muted = true;
                     v.playsInline = true;
-                    v.preload = 'none'; // don't preload artwork videos upfront
+                    v.preload = 'none';
                     v.style.objectFit = 'cover';
-                    videoObserver.observe(v); // lazy play
+                    videoObserver.observe(v);
                     if (f.noWatermark) {
                         const wrapper = document.createElement('div');
                         wrapper.style.cssText = 'width:95%;position:relative;overflow:hidden;border-radius:12px;';
@@ -520,6 +500,60 @@ function makeDraggable() {
     });
 }
 
+// ===== STAMP CAROUSEL (visible only at ≤1200px) =====
+function initStampCarousel() {
+    const stampImages = [
+        'imgs/stamp1.png',
+        'imgs/stamp2.png',
+        'imgs/stamp3.png',
+    ];
+
+    const img    = document.getElementById('stampCarouselImg');
+    const prev   = document.getElementById('stampPrev');
+    const next   = document.getElementById('stampNext');
+    const dotsEl = document.getElementById('stampDots');
+
+    if (!img || !prev || !next || !dotsEl) return;
+
+    let current = 0;
+
+    // Build dots
+    stampImages.forEach((_, i) => {
+        const dot = document.createElement('span');
+        dot.className = 'stamp-carousel__dot' + (i === 0 ? ' active' : '');
+        dot.addEventListener('click', () => goTo(i));
+        dotsEl.appendChild(dot);
+    });
+
+    function goTo(index) {
+        current = (index + stampImages.length) % stampImages.length;
+
+        // Animate out
+        img.style.opacity = '0';
+        img.style.transform = 'scale(0.82) rotate(5deg)';
+        img.style.transition = 'opacity 0.18s ease, transform 0.18s ease';
+
+        setTimeout(() => {
+            img.src = stampImages[current];
+            // Animate in
+            img.style.transition = 'opacity 0.22s ease, transform 0.22s cubic-bezier(0.34,1.56,0.64,1)';
+            img.style.opacity = '1';
+            img.style.transform = 'scale(1) rotate(0deg)';
+        }, 190);
+
+        // Update dots
+        dotsEl.querySelectorAll('.stamp-carousel__dot').forEach((d, i) => {
+            d.classList.toggle('active', i === current);
+        });
+    }
+
+    prev.addEventListener('click', () => goTo(current - 1));
+    next.addEventListener('click', () => goTo(current + 1));
+
+    // Swipe support on the carousel image
+    addSwipeSupport(img.parentElement, () => goTo(current + 1), () => goTo(current - 1));
+}
+
 // ===== POSITION MOON AND SIDE DECORATIONS =====
 function positionMoonAndSides() {
     const contact = document.querySelector('.contact-section');
@@ -594,7 +628,6 @@ function positionElements() {
 //  NAVBAR INTERACTIVE ANIMATIONS
 // ================================================================
 
-// ----- 1. FLOATING STAR PARTICLE CANVAS -----
 function initNavParticles() {
     const canvas = document.getElementById('particle-canvas');
     if (!canvas) return;
@@ -663,7 +696,6 @@ function initNavParticles() {
         }
     }
 
-    // Reduced from 55 to 25 stars — still looks great, much lighter
     const stars = [];
     for (let i = 0; i < 25; i++) stars.push(new Star(true));
 
@@ -674,7 +706,6 @@ function initNavParticles() {
     })();
 }
 
-// ----- 2. LETTER-BY-LETTER TITLE WRAP -----
 function splitNavTitle() {
     const title = document.getElementById('navTitle');
     if (!title) return;
@@ -688,7 +719,6 @@ function splitNavTitle() {
     });
 }
 
-// ----- 3. LETTER WAVE ON HOVER (neighbours bounce too) -----
 function initLetterHover() {
     function attachHover() {
         const letters = Array.from(document.querySelectorAll('#navTitle .nav-letter'));
@@ -721,7 +751,6 @@ function initLetterHover() {
     setTimeout(attachHover, 50);
 }
 
-// ----- 4. SPARKLE BURST ON NAV BUTTON CLICK -----
 function initBtnSparkles() {
     document.querySelectorAll('.nav-links .nav-btn').forEach(btn => {
         btn.addEventListener('click', () => {
@@ -759,7 +788,6 @@ function initBtnSparkles() {
     });
 }
 
-// ----- 5. MAGICAL FLOATING ORBS behind the navbar -----
 function initNavOrbs() {
     const nav = document.getElementById('mainNav');
     if (!nav) return;
@@ -797,7 +825,6 @@ function initNavOrbs() {
     nav.appendChild(fragment);
 }
 
-// ----- 6. IDLE WAVE on title letters -----
 function startIdleWave() {
     const title = document.getElementById('navTitle');
     if (!title) return;
@@ -806,7 +833,6 @@ function startIdleWave() {
     }, 1500);
 }
 
-// ----- 7. INTRO OVERLAY STARS -----
 function initIntroStars() {
     const container = document.getElementById('introStars');
     if (!container) return;
@@ -840,7 +866,6 @@ function initIntroStars() {
     container.appendChild(fragment);
 }
 
-// ----- 8. REMOVE INTRO OVERLAY after animation -----
 function setupIntroOverlay() {
     const overlay = document.getElementById('intro-overlay');
     if (!overlay) return;
@@ -850,7 +875,6 @@ function setupIntroOverlay() {
     }, 2900);
 }
 
-// ----- 9. LOGO CLICK SPIN -----
 function initLogoSpin() {
     const logo = document.getElementById('logoImg');
     if (!logo) return;
@@ -869,10 +893,8 @@ function initLogoSpin() {
 // ===== INITIALIZE =====
 document.addEventListener('DOMContentLoaded', function () {
 
-    // --- Intro overlay ---
     setupIntroOverlay();
 
-    // --- Navbar interactive init ---
     splitNavTitle();
     initLetterHover();
     initNavParticles();
@@ -881,7 +903,6 @@ document.addEventListener('DOMContentLoaded', function () {
     startIdleWave();
     initLogoSpin();
 
-    // --- Existing site init ---
     updateShowcase();
     populateGallery();
 
@@ -916,6 +937,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
     makeDraggable();
     addStampHighlight();
+
+    // ── Stamp carousel (only active at ≤1200px via CSS display:none above) ──
+    initStampCarousel();
 
     const moonImg = document.querySelector('.right-moon');
     if (moonImg) {
